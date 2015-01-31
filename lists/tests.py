@@ -18,3 +18,18 @@ class HomePageTest(TestCase):
 		self.assertEqual(response.content.decode(), expected_html)
 		#strip to get rid of the /n (new line whitespace ) that django 
 		#adds to the template at the end of the file after </html> 
+
+	def test_home_page_can_save_a_POST_request(self):
+		request = HttpRequest()
+		request.method = 'Post'
+		request.POST['item_text'] = 'A new list item'
+
+		response = home_page(request)
+		self.assertIn('A new list item', response.content.decode())
+		expected_html = render_to_string(
+			'home.html',
+			{'new_item_test': 'A new list item'}
+			)
+		self.assertEqual(response.content.decode(), expected_html)
+
+
