@@ -20,3 +20,4 @@ def add_item(request, list_id):
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
     return render(request, 'list.html', {'list': list_})
+
